@@ -2,20 +2,124 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="/css/style.css">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <!-- <link rel="stylesheet" href="/css/style.css"> -->
     <title>EduTech</title>
 </head>
 <body>
-    <header>
-        <img class="logo" src="/resources/logo.svg" alt="logo edutech" width="150" >
-        <nav>
-            <ul class="nav_link">
-                <li><a href="#">Home</a></li>    
-                <li><a href="#">Productos</a></li>    
-                <li><a href="#">Contacto</a></li>    
-            </ul>
-        </nav>
-    </header>
+    <div class="container">
+        <header>            
+            <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+                <a class="navbar-brand" href="/index.html"><img class="logo" src="/images/logo.svg" alt="edutech" width="150px" ></a>                
+                <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+                  <span class="navbar-toggler-icon"></span>
+                </button>              
+                <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+                  <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                    <li class="nav-item">
+                      <a class="nav-link" href="#">Productos</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Contacto</a>
+                    </li>                  
+                  </ul>
+                  <form class="form-inline my-2 my-lg-0">
+                    <input class="form-control mr-sm-2" type="search" placeholder="Buscar Curso">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+                  </form>
+                </div>
+              </nav>                        
+        </header>
+        <main>
+            <section class="jumbotron text-center">
+              <div class="container">
+                <h1 class="jumbotron-heading">Educación en línea</h1>
+                <p class="lead text-muted">Aprende Desarrollo Web, Redes y Seguridad Informática.</p>                    
+                <p>
+                  <a href="#" class="btn btn-primary my-2" role="button">Ver Cursos</a>
+                </p>
+              </div>
+            </section>
+            <div class="py-5 text-center">
+              <h2>¿Qué quieres aprender hoy?</h2>
+            </div>
+            <div class="album py-5 bg-light">
+              <div class="container">      
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                      <img class="card-img-top" alt="" src="/images/Curso_PHP_Imagen.jpg">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                      <img class="card-img-top" alt="" src="/images/Curso_PHP_Imagen.jpg">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                      <img class="card-img-top" alt="" src="/images/Curso_PHP_Imagen.jpg">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="py-5 text-center">
+              <h2>Nuevos Cursos</h2>
+            </div>
+            <div class="album py-5 bg-light">
+              <div class="container">      
+                <div class="row">
+                  <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                      <img class="card-img-top" alt="" src="/images/Curso_PHP_Imagen.jpg">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                      <img class="card-img-top" alt="" src="/images/Curso_PHP_Imagen.jpg">
+                    </div>
+                  </div>
+                  <div class="col-md-4">
+                    <div class="card mb-4 box-shadow">
+                      <img class="card-img-top" alt="" src="/images/Curso_PHP_Imagen.jpg">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            
+        </main>
+        <footer class="pt-4 my-md-5 pt-md-5 border-top">
+            <div class="row">
+              <div class="col-12 col-md">
+                <img class="mb-2" src="/images/logo.svg" alt="" width="24" height="24">
+                <small class="d-block mb-3 text-muted">©2020 EduTech</small>
+              </div>
+              <div class="col-6 col-md">
+                <h5>Cursos</h5>
+                <ul class="list-unstyled text-small">
+                  <li><a class="text-muted" href="#">Programación</a></li>
+                  <li><a class="text-muted" href="#">Diseño Web</a></li>
+                  <li><a class="text-muted" href="#">Desarrollo Web</a></li>
+                  <li><a class="text-muted" href="#">Seguridad Informática</a></li>
+                  <li><a class="text-muted" href="#">Redes</a></li>
+                </ul>
+              </div>
+              <div class="col-6 col-md">
+                <h5>Nosotros</h5>
+                <ul class="list-unstyled text-small">
+                  <li><a class="text-muted" href="#">Contacto</a></li>
+                  <li><a class="text-muted" href="#">Soporte</a></li>
+                  <li><a class="text-muted" href="#">Preguntas frecuentes</a></li>
+                </ul>
+              </div>
+            </div>
+        </footer>
+    </div>
 </body>
 </html> 
