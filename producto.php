@@ -26,7 +26,7 @@
   <div class="container">
     <header>
       <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-        <a class="navbar-brand" href="/index.html"><img class="logo" src="/images/logo.svg" alt="edutech"
+        <a class="navbar-brand" href="index.html"><img class="logo" src="images/logo.svg" alt="edutech"
             width="150px"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
           aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,7 +35,7 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="/producto.php">Productos</a>
+              <a class="nav-link" href="producto.php">Productos</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="#">Contacto</a>
@@ -58,7 +58,7 @@
           <div class="row justify-content-center">
             <div class="col-md-6 ">
               <div class="card mb-4 box-shadow text-center">
-                <img class="card-img-top" src="/images/php_base.jpg" alt="">
+                <img class="card-img-top" src="images/php_base.jpg" alt="">
                 <div class="card-body">
                   <p class="card-text">Curso: <?php echo $curso ?></p>
                   <p class="card-text">Descripción: <?php echo $descripcion ?></p>                  
@@ -81,7 +81,7 @@
             <div class="col-md-6 ">
               <div class="card mb-4 box-shadow text-center">
                 <audio controls>
-                  <source src="/audio/Curso_PHP_Audio.mp3" type="audio/mp3">
+                  <source src="audio/Curso_PHP_Audio.mp3" type="audio/mp3">
                 </audio>
               </div>
             </div>            
@@ -94,7 +94,7 @@
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
       <div class="row">
         <div class="col-12 col-md">
-          <img class="mb-2" src="/images/logo_black.svg" alt="" width="150">
+          <img class="mb-2" src="images/logo_black.svg" alt="" width="150">
           <small class="d-block mb-3 text-muted">©2020 EduTech</small>
         </div>
         <div class="col-6 col-md">
