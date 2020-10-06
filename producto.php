@@ -1,12 +1,16 @@
 <?php
-    $curso="Curso PHP desde Cero"; 
+require_once 'includes/connection.php'
+
+
+/*     $curso="Curso PHP desde Cero"; 
     $descripcion="Aprenderás lo básico para familiarizarte con la sintaxis del lenguaje,
     desde tipos de datos, variables y operadores.
     Continuando con estructuras de control y funciones, para pasar a la Programación Orientada a objetos y terminar con un proyecto practico con conexión a base de datos.
     ";
     $precio=450;
     $existencia="Disponible";
-    $video="https://www.youtube.com/embed/uhcerG4UvH0";
+    $video="https://www.youtube.com/embed/uhcerG4UvH0"; */
+    
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -48,9 +52,37 @@
         </div>
       </nav>
     </header>
-    
     <main>
-      <div class="py-5 text-center">
+      <div class="container">
+        <div class="row">
+          <div class="col-3">
+            <p class="lead text-center font-weight-bold">Cursos</p>
+            <div class="list-group">
+              <?php
+                $query="SELECT * FROM categorias";
+                $sendQuery= mysqli_query($connection, $query);
+                $sendQueryCheck = mysqli_num_rows($sendQuery);
+                if($sendQueryCheck > 0){
+                  while($row = mysqli_fetch_assoc($sendQuery)){
+                    echo "<a href='#' class='list-group-item list-group-item-action'>{$row['descripcion']}</a>";
+                  }
+                }
+              ?>
+            </div>
+          </div>
+          <div class="col-9">
+            
+          </div>
+        </div>
+      </div>
+
+      
+
+    
+
+
+
+<!--       <div class="py-5 text-center">
         <h2><?php echo $curso ?></h2>
       </div>
       <div class="album py-5 bg-light">
@@ -88,7 +120,7 @@
           </div>
 
         </div>
-      </div>
+      </div> -->
     </main>
 
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
