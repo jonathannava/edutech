@@ -55,7 +55,7 @@ require_once 'includes/connection.php'
     <main>
       <div class="container">
         <div class="row">
-          <div class="col-3">
+          <div class="col-md-3">
             <p class="lead text-center font-weight-bold">Cursos</p>
             <div class="list-group">
               <?php
@@ -64,63 +64,44 @@ require_once 'includes/connection.php'
                 $sendQueryCheck = mysqli_num_rows($sendQuery);
                 if($sendQueryCheck > 0){
                   while($row = mysqli_fetch_assoc($sendQuery)){
-                    echo "<a href='#' class='list-group-item list-group-item-action'>{$row['descripcion']}</a>";
+                    echo "<a href='#' class='list-group-item list-group-item-action list-group-item-info'>{$row['descripcion']}</a>";
                   }
                 }
               ?>
             </div>
           </div>
-          <div class="col-9">
-            
+          <div class="col-md-9">
+            <div class="album py-5">
+              <div class="container">
+                <div class="row row-cols-1 row-cols-md-3">                  
+                  <?php
+                    $query="SELECT * FROM productos";
+                    $sendQuery= mysqli_query($connection, $query);
+                    $sendQueryCheck = mysqli_num_rows($sendQuery);
+                    if($sendQueryCheck > 0){
+                      while($row = mysqli_fetch_assoc($sendQuery)){
+                        echo "
+                        <div class='col-md-6 mb-4'>
+                          <div class='card'> 
+                            <img class='card-img-top' src='{$row['urlimagen']}' alt='Card image cap'>
+                            <div class='card-body'>
+                            <h5 class='card-title'>{$row['descripcion']} </h5>
+                            <p class='card-text'>Precio: {$row['precio']}</p>                      
+                            </div>
+                          </div>
+                        </div>                      
+                        " ;
+                      }
+                    }
+                  ?>     
+                </div>
+              </div>
+            </div>            
           </div>
         </div>
       </div>
-
       
-
-    
-
-
-
-<!--       <div class="py-5 text-center">
-        <h2><?php echo $curso ?></h2>
-      </div>
-      <div class="album py-5 bg-light">
-        <div class="container">
-          <div class="row justify-content-center">
-            <div class="col-md-6 ">
-              <div class="card mb-4 box-shadow text-center">
-                <img class="card-img-top" src="images/php_base.jpg" alt="">
-                <div class="card-body">
-                  <p class="card-text">Curso: <?php echo $curso ?></p>
-                  <p class="card-text">Descripción: <?php echo $descripcion ?></p>                  
-                  <p class="card-text">Precio: $<?php echo $precio ?> MNX</p>
-                  <p class="card-text">Exitencia: <?php echo $existencia ?></p>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="row justify-content-center">
-            <div class="col-md-6 ">
-              <div class="card mb-4 box-shadow text-center">
-                <div class="embed-responsive embed-responsive-16by9">
-                  <iframe class="embed-responsive-item" src="<?php echo $video?>" allowfullscreen></iframe>
-                </div>
-              </div>
-            </div>            
-          </div>
-          <div class="row justify-content-center">
-            <div class="col-md-6 ">
-              <div class="card mb-4 box-shadow text-center">
-                <audio controls>
-                  <source src="audio/Curso_PHP_Audio.mp3" type="audio/mp3">
-                </audio>
-              </div>
-            </div>            
-          </div>
-
-        </div>
-      </div> -->
+      
     </main>
 
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
@@ -163,5 +144,4 @@ require_once 'includes/connection.php'
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
 </body>
-
 </html>
