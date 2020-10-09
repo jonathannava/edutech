@@ -43,7 +43,7 @@
         <div class="row ">
           <div class="col-md-3">
             <p class="lead text-center font-weight-bold mt-2">Cursos</p>
-            <div class="list-group">
+            <ul class="list-group">
               <?php
                 require_once 'includes/connection.php';
                 $query="SELECT * FROM categorias";
@@ -51,11 +51,21 @@
                 $sendQueryCheck = mysqli_num_rows($sendQuery);
                 if($sendQueryCheck > 0){
                   while($row = mysqli_fetch_assoc($sendQuery)){
-                    echo "<a href='#' class='list-group-item list-group-item-action list-group-item-info'>{$row['descripcion']}</a>";
+                    echo "
+                    <li class='list-group-item list-group-item-action list-group-item-info'>
+                <div class='form-check'>
+                  <label  class='form-check-label'>
+                    <input type='checkbox' class='form-check-input product_check' value='{$row['descripcion']}' id='descripcion'>{$row['descripcion']}
+                  </label>
+                </div>
+              </li>
+                    
+                    ";
                   }
                 }
               ?>
-            </div>
+              
+            </ul>
           </div>
           <div class="col-md-9">
             <div class="album py-5">
