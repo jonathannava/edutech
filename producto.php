@@ -83,7 +83,7 @@
                             <img class='card-img-top' src='{$row['urlimagen']}' alt='Card image cap'>
                             <div class='card-body'>
                             <h5 class='card-title'>{$row['descripcion']} </h5>
-                            <p class='card-text'>Precio: {$row['precio']}</p>                      
+                            <p class='card-text'>Precio: <span class='text-danger font-weight-bold'>\${$row['precio']}</span></p>                      
                             </div>
                           </div>
                         </div>                      
