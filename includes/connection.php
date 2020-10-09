@@ -1,6 +1,6 @@
 <?php
 $DB_server="127.0.0.1";
-$DB_user="root";
+$DB_user="tiendavirtual";
 $DB_pass="#1#2#3";
 $DB_name="tiendavirtual";
 

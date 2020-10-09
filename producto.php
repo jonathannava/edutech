@@ -1,17 +1,3 @@
-<?php
-require_once 'includes/connection.php'
-
-
-/*     $curso="Curso PHP desde Cero"; 
-    $descripcion="Aprenderás lo básico para familiarizarte con la sintaxis del lenguaje,
-    desde tipos de datos, variables y operadores.
-    Continuando con estructuras de control y funciones, para pasar a la Programación Orientada a objetos y terminar con un proyecto practico con conexión a base de datos.
-    ";
-    $precio=450;
-    $existencia="Disponible";
-    $video="https://www.youtube.com/embed/uhcerG4UvH0"; */
-    
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -54,11 +40,12 @@ require_once 'includes/connection.php'
     </header>
     <main>
       <div class="container">
-        <div class="row">
+        <div class="row ">
           <div class="col-md-3">
-            <p class="lead text-center font-weight-bold">Cursos</p>
+            <p class="lead text-center font-weight-bold mt-2">Cursos</p>
             <div class="list-group">
               <?php
+                require_once 'includes/connection.php';
                 $query="SELECT * FROM categorias";
                 $sendQuery= mysqli_query($connection, $query);
                 $sendQueryCheck = mysqli_num_rows($sendQuery);
@@ -73,7 +60,7 @@ require_once 'includes/connection.php'
           <div class="col-md-9">
             <div class="album py-5">
               <div class="container">
-                <div class="row row-cols-1 row-cols-md-3">                  
+                <div class="row row-cols-1 row-cols-md-3 mt-2">                  
                   <?php
                     $query="SELECT * FROM productos";
                     $sendQuery= mysqli_query($connection, $query);
@@ -100,8 +87,6 @@ require_once 'includes/connection.php'
           </div>
         </div>
       </div>
-      
-      
     </main>
 
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
