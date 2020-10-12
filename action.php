@@ -1,10 +1,12 @@
 <?php
     require_once 'includes/connection.php';
     if(isset($_POST['action'])){
-        $sql = "SELECT * FROM productos WHERE descripcion !=''";
-        if(isset($_POST['descripcion'])){
-            $descripcion=implode("','",$_POST['descripcion']);
-            $sql.="AND descripcion IN('".$descripcion."')";
+        $sql = "SELECT * FROM productos WHERE idcategoria !=''";
+        
+        if(isset($_POST['idcategoria'])){
+            $idcategoria=implode("','", $_POST['idcategoria']);
+            
+            $sql .="AND idcategoria IN('".$idcategoria."')";
         }
         $result = $connection->query($sql);
         $output='';

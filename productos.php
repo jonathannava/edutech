@@ -49,20 +49,20 @@
                 $query="SELECT * FROM categorias";
                 $sendQuery= mysqli_query($connection, $query);
                 $sendQueryCheck = mysqli_num_rows($sendQuery);
-                if($sendQueryCheck > 0){
+                
                   while($row = mysqli_fetch_assoc($sendQuery)){
-                    echo "
-                    <li class='list-group-item list-group-item-action list-group-item-info'>
-                <div class='form-check'>
-                  <label  class='form-check-label'>
-                    <input type='checkbox' class='form-check-input product_check' value='{$row['descripcion']}' id='descripcion'>{$row['descripcion']}
-                  </label>
-                </div>
-              </li>                    
-                    ";
-                  }
-                }
-              ?>
+                  ?>                    
+                    <li class="list-group-item list-group-item-action list-group-item-info">
+                      <div class="form-check">
+                        <label  class="form-check-label">
+                          <input type="checkbox" class="form-check-input product_check" value="<?=$row['idcategoria'];?>" id="idcategoria"><?= $row['descripcion'];?>
+                        </label>
+                      </div>
+                    </li>                    
+                    
+                 
+                  <?php  }
+                  ?>
               
             </ul>
           </div>
@@ -146,11 +146,11 @@
     $(document).ready(function(){
       $(".product_check").click(function(){
         var action = 'data';
-        var descripcion = get_categories('descripcion');
+        var idcategoria = get_categories('idcategoria');
         $.ajax({
           url:'action.php',
           method:'POST',
-          data:{action:action,descripcion:descripcion},
+          data:{action:action,idcategoria:idcategoria},
           success:function(response){
             $("#result").html(response);
             
