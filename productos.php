@@ -15,7 +15,7 @@
 <body>
   <div class="container">
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
         <a class="navbar-brand" href="index.html"><img class="logo" src="images/logo.svg" alt="edutech"
             width="150px"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
@@ -25,7 +25,7 @@
         <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
           <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
             <li class="nav-item">
-              <a class="nav-link" href="producto.php">Productos</a>
+              <a class="nav-link" href="productos.php">Productos</a>
             </li>
             <li class="nav-item">
               <a class="nav-link" href="contacto.html">Contacto</a>
@@ -58,8 +58,7 @@
                     <input type='checkbox' class='form-check-input product_check' value='{$row['descripcion']}' id='descripcion'>{$row['descripcion']}
                   </label>
                 </div>
-              </li>
-                    
+              </li>                    
                     ";
                   }
                 }
@@ -70,7 +69,7 @@
           <div class="col-md-9">
             <div class="album py-5">
               <div class="container">
-                <div class="row row-cols-1 row-cols-md-3 mt-2">                  
+                <div class="row row-cols-1 row-cols-md-3 mt-2" id="result">                  
                   <?php
                     $query="SELECT * FROM productos";
                     $sendQuery= mysqli_query($connection, $query);
@@ -78,11 +77,11 @@
                     if($sendQueryCheck > 0){
                       while($row = mysqli_fetch_assoc($sendQuery)){
                         echo "
-                        <div class='col-md-6 mb-4'>
-                          <div class='card'> 
+                        <div class='col-md-6 mb-4 '>
+                          <div class='card border border-success '> 
                             <img class='card-img-top' src='{$row['urlimagen']}' alt='Card image cap'>
                             <div class='card-body'>
-                            <h5 class='card-title'>{$row['descripcion']} </h5>
+                            <h5 class='card-title '>{$row['descripcion']} </h5>
                             <p class='card-text'>Precio: <span class='text-danger font-weight-bold'>\${$row['precio']}</span></p>                      
                             </div>
                           </div>
@@ -127,9 +126,13 @@
     </footer>
   </div>
 
+  
+  
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"
+  <script src="https://code.jquery.com/jquery-3.5.1.min.js"
+  integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0="
+  crossorigin="anonymous"
     integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"
@@ -138,5 +141,30 @@
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"
     integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
     crossorigin="anonymous"></script>
+  
+  <script>
+    $(document).ready(function(){
+      $(".product_check").click(function(){
+        var action = 'data';
+        var descripcion = get_categories('descripcion');
+        $.ajax({
+          url:'action.php',
+          method:'POST',
+          data:{action:action,descripcion:descripcion},
+          success:function(response){
+            $("#result").html(response);
+            
+          }
+        });
+      });
+      function get_categories(text_id){
+        var filterData=[];
+        $('#'+text_id+':checked').each(function(){
+          filterData.push($(this).val());
+        });
+        return filterData;
+      }
+    });
+  </script>
 </body>
 </html>
