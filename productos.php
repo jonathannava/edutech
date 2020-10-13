@@ -15,7 +15,7 @@
 <body>
   <div class="container">
     <header>
-      <nav class="navbar navbar-expand-lg navbar-dark bg-dark sticky-top">
+      <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <a class="navbar-brand" href="index.html"><img class="logo" src="images/logo.svg" alt="edutech"
             width="150px"></a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02"
@@ -32,8 +32,7 @@
             </li>
           </ul>
           <form class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" type="search" placeholder="Buscar Curso">
-            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Buscar</button>
+            <input class="form-control mr-sm-2" type="text" name="search" id="search_text" placeholder="Buscar Curso">            
           </form>
         </div>
       </nav>
@@ -157,6 +156,22 @@
           }
         });
       });
+
+      $("#search_text").keyup(function(){
+        var search = $(this).val();
+        $.ajax({
+          url:'search.php',
+          method:'POST',
+          data:{query:search},
+          success:function(response){
+            $("#result").html(response);
+            
+          }
+        });
+
+      });
+
+
       function get_categories(text_id){
         var filterData=[];
         $('#'+text_id+':checked').each(function(){

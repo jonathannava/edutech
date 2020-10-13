@@ -1,5 +1,6 @@
 <?php
     require_once 'includes/connection.php';
+
     if(isset($_POST['action'])){
         $sql = "SELECT * FROM productos WHERE idcategoria !=''";
         
@@ -26,7 +27,7 @@
             }
         }
         else{
-            $output="No hay productos";
+            $output="<h3>Producto no encontrado.</h3>";
         }
         echo $output;
     }
