@@ -41,9 +41,9 @@
                     <h1 class="h3 mb-3 font-weight-normal">Registrar usuario</h1>
                     <p class="mb-3 font-weight-normal">o <a href="login.php">iniciar sesión</a></p>
                     <label for="inputEmail" class="sr-only">Correo Electrónico</label>
-                    <input type="email" id="inputEmail" class="form-control" placeholder="Correo Electrónico" required="" autofocus="">
+                    <input type="email" id="inputEmail" class="form-control  mb-2" placeholder="Correo Electrónico" required="" autofocus="">
                     <label for="inputPassword" class="sr-only">Contraseña</label>
-                    <input type="password" id="inputPassword" class="form-control" placeholder="Contraseña" required="">
+                    <input type="password" id="inputPassword" class="form-control  mb-2" placeholder="Contraseña" required="">
                     <label for="inputPasswordConfirm" class="sr-only">Confirmar Contraseña</label>
                     <input type="password" id="inputPasswordConfirm" class="form-control mb-3" placeholder="Confirmar Contraseña" required="">
                     
