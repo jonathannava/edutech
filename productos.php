@@ -35,7 +35,7 @@
             <input class="form-control mr-sm-2" type="text" name="search" id="search_text" placeholder="Buscar Curso">            
           </form>
           <li>
-          <a class="btn btn-outline-success text-white" href="#">Registro/Login</a>
+          <a class="btn btn-outline-success text-white" href="login.php">Registro/Login</a>
           </li>
         </div>
       </nav>
