@@ -1,3 +1,32 @@
+<?php
+
+require_once 'includes/connection.php';
+
+    $message = '';    
+    
+  if (!empty($_POST['inputEmail']) && !empty($_POST['inputPassword'])) {    
+    $sql = "INSERT INTO clientes2 (email, password) VALUES (?,?)";
+    $stmt = $connection->prepare($sql);    
+    $stmt->bind_param('ss', $email, $password);
+    $email=$_POST['inputEmail'];    
+    $password = password_hash($_POST['inputPassword'], PASSWORD_BCRYPT);    
+    if ($stmt->execute()) {      
+      $message = '
+        <div class="alert alert-success alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Success!</strong> Nuevo usuario creado satisfactoriamente.
+        </div>
+      ';
+    } else {      
+      $message = '
+        <div class="alert alert-warning alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> Ocurrio un problema al crear la cuenta de susuario.
+        </div>
+      ';
+    } 
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,25 +63,23 @@
                 </div>
             </nav>
         </header>
+        
         <main>
             <div class="d-flex justify-content-center text-center pt-4">
                 <form action="registro.php" method="POST" class="form-signing w-50">
                     <img class="mb-4" src="images/usuario.svg" alt="" width="72" height="72">
+                    <?php if(!empty($message)): ?>
+                        <p> <?= $message ?></p>                        
+                    <?php endif; ?>
                     <h1 class="h3 mb-3 font-weight-normal">Registrar usuario</h1>
                     <p class="mb-3 font-weight-normal">o <a href="login.php">iniciar sesión</a></p>
                     <label for="inputEmail" class="sr-only">Correo Electrónico</label>
-                    <input type="email" id="inputEmail" class="form-control  mb-2" placeholder="Correo Electrónico" required="" autofocus="">
+                    <input name="inputEmail" type="email" id="inputEmail" class="form-control  mb-2" placeholder="Correo Electrónico" required="" autofocus="">
                     <label for="inputPassword" class="sr-only">Contraseña</label>
-                    <input type="password" id="inputPassword" class="form-control  mb-2" placeholder="Contraseña" required="">
+                    <input name="inputPassword" type="password" id="inputPassword" class="form-control  mb-2" placeholder="Contraseña" required="">
                     <label for="inputPasswordConfirm" class="sr-only">Confirmar Contraseña</label>
-                    <input type="password" id="inputPasswordConfirm" class="form-control mb-3" placeholder="Confirmar Contraseña" required="">
-                    
-                    <button class="mb-3 btn btn-lg btn-primary btn-block" type="submit">Registrar</button> 
-                    <div class="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" value="remember-me"> Remember me
-                        </label>
-                    </div>                   
+                    <input name="inputPasswordConfirm" type="password" id="inputPasswordConfirm" class="form-control mb-3" placeholder="Confirmar Contraseña" required="">                    
+                    <button class="mb-3 btn btn-lg btn-primary btn-block" type="submit">Registrar</button>                  
                 </form>
             </div>
         </main>
