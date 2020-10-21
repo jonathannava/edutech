@@ -36,7 +36,7 @@
         </header>
         <main>
             <div class="d-flex justify-content-center text-center pt-4">
-                <form class="form-signing w-50">
+                <form action="registro.php" method="POST" class="form-signing w-50">
                     <img class="mb-4" src="images/usuario.svg" alt="" width="72" height="72">
                     <h1 class="h3 mb-3 font-weight-normal">Registrar usuario</h1>
                     <p class="mb-3 font-weight-normal">o <a href="login.php">iniciar sesión</a></p>
