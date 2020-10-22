@@ -128,7 +128,8 @@ if (!empty($_POST['inputEmail']) && !empty($_POST['inputPassword'])) {
                 $('#Button').prop('disabled', false);
             } else {
                 document.getElementById('message').className = 'text-danger';
-                document.getElementById('message').innerHTML = 'Las contraseñas no coinciden';                
+                document.getElementById('message').innerHTML = 'Las contraseñas no coinciden';  
+                $('#Button').prop('disabled', true);              
             }
         }
     </script>
