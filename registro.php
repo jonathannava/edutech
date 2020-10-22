@@ -2,30 +2,30 @@
 
 require_once 'includes/connection.php';
 
-    $message = '';    
-    
-  if (!empty($_POST['inputEmail']) && !empty($_POST['inputPassword'])) {    
+$message = '';
+
+if (!empty($_POST['inputEmail']) && !empty($_POST['inputPassword'])) {
     $sql = "INSERT INTO clientes2 (email, password) VALUES (?,?)";
-    $stmt = $connection->prepare($sql);    
+    $stmt = $connection->prepare($sql);
     $stmt->bind_param('ss', $email, $password);
-    $email=$_POST['inputEmail'];    
-    $password = password_hash($_POST['inputPassword'], PASSWORD_BCRYPT);    
-    if ($stmt->execute()) {      
-      $message = '
+    $email = $_POST['inputEmail'];
+    $password = password_hash($_POST['inputPassword'], PASSWORD_BCRYPT);
+    if ($stmt->execute()) {
+        $message = '
         <div class="alert alert-success alert-dismissible fade show">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong>Success!</strong> Nuevo usuario creado satisfactoriamente.
         </div>
       ';
-    } else {      
-      $message = '
+    } else {
+        $message = '
         <div class="alert alert-warning alert-dismissible fade show">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong>Warning!</strong> Ocurrio un problema al crear la cuenta de susuario.
         </div>
       ';
-    } 
-  }
+    }
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -63,13 +63,13 @@ require_once 'includes/connection.php';
                 </div>
             </nav>
         </header>
-        
+
         <main>
             <div class="d-flex justify-content-center text-center pt-4">
-                <form action="registro.php" method="POST" class="form-signing w-50">
+                <form name="registerForm" action="registro.php" method="POST" class="form-signing w-50">
                     <img class="mb-4" src="images/usuario.svg" alt="" width="72" height="72">
-                    <?php if(!empty($message)): ?>
-                        <p> <?= $message ?></p>                        
+                    <?php if (!empty($message)) : ?>
+                        <p> <?= $message ?></p>
                     <?php endif; ?>
                     <h1 class="h3 mb-3 font-weight-normal">Registrar usuario</h1>
                     <p class="mb-3 font-weight-normal">o <a href="login.php">iniciar sesión</a></p>
@@ -78,8 +78,9 @@ require_once 'includes/connection.php';
                     <label for="inputPassword" class="sr-only">Contraseña</label>
                     <input name="inputPassword" type="password" id="inputPassword" class="form-control  mb-2" placeholder="Contraseña" required="">
                     <label for="inputPasswordConfirm" class="sr-only">Confirmar Contraseña</label>
-                    <input name="inputPasswordConfirm" type="password" id="inputPasswordConfirm" class="form-control mb-3" placeholder="Confirmar Contraseña" required="">                    
-                    <button class="mb-3 btn btn-lg btn-primary btn-block" type="submit">Registrar</button>                  
+                    <input name="inputPasswordConfirm" type="password" id="inputPasswordConfirm" class="form-control mb-1" placeholder="Confirmar Contraseña" onkeyup='passwordConfirm();' required="">
+                    <span id='message' class="mb-3"></span>
+                    <button id="Button" class="mt-3 btn btn-lg btn-primary btn-block" type="submit" >Registrar</button>
                 </form>
             </div>
         </main>
@@ -113,9 +114,24 @@ require_once 'includes/connection.php';
 
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $('#Button').prop('disabled', true);
+        function passwordConfirm() {           
+            if (document.getElementById('inputPassword').value == document.getElementById('inputPasswordConfirm').value) {
+                //document.getElementById('message').style.color = 'green';
+                document.getElementById('message').className="text-success";
+                document.getElementById('message').innerHTML = '';
+                /* document.registerForm.submit(); */
+                $('#Button').prop('disabled', false);
+            } else {
+                document.getElementById('message').className = 'text-danger';
+                document.getElementById('message').innerHTML = 'Las contraseñas no coinciden';                
+            }
+        }
+    </script>
 </body>
 
 </html>
