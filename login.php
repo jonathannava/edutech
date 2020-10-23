@@ -14,19 +14,35 @@
         if($results->num_rows>0){            
             while($row=$results->fetch_assoc()){                
                 if ( (password_verify($_POST['inputPassword'], $row['password']))) {
+                    
                     $_SESSION['idcliente'] = $row['idcliente'];
+                    /* $message = '
+                        <div class="alert alert-warning alert-dismissible fade show">
+                        <button type="button" class="close" data-dismiss="alert">&times;</button>
+                        <strong>Warning!</strong> Usuario encontrado.
+                        </div>                    
+                    '; */
                     header("Location: /index.php");
-                  } 
+                }
+                else {
+                    $message = '
+                    <div class="alert alert-warning alert-dismissible fade show">
+                    <button type="button" class="close" data-dismiss="alert">&times;</button>
+                    <strong>Warning!</strong> Contraseña incorrecta.
+                    </div>                    
+                    ';
+                }
+
             }                       
         }
         else {
             $message = '
-            <div class="alert alert-warning alert-dismissible fade show">
+            <div class="alert alert-danger alert-dismissible fade show">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Warning!</strong> Usuario No encontrado, verificar usuario y contraseña.
+            <strong>Datos inválidos!</strong>
             </div>                    
             ';
-          }
+        }
     }
 ?>
 <!DOCTYPE html>
