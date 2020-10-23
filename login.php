@@ -1,3 +1,34 @@
+<?php
+    session_start();
+    if (isset($_SESSION['idcliente'])) {
+        header('Location: /index.php');
+      }
+    require 'includes/connection.php';
+    
+    if (!empty($_POST['inputEmail']) && !empty($_POST['inputPassword'])) {
+        $records = $connection->prepare('SELECT idcliente, email, password FROM clientes2 WHERE email = ?');
+        $records->bind_param('s', $_POST['inputEmail']); 
+        $records->execute();
+        $results=$records->get_result();
+        $message = '';
+        if($results->num_rows>0){            
+            while($row=$results->fetch_assoc()){                
+                if ( (password_verify($_POST['inputPassword'], $row['password']))) {
+                    $_SESSION['idcliente'] = $row['idcliente'];
+                    header("Location: /index.php");
+                  } 
+            }                       
+        }
+        else {
+            $message = '
+            <div class="alert alert-warning alert-dismissible fade show">
+            <button type="button" class="close" data-dismiss="alert">&times;</button>
+            <strong>Warning!</strong> Usuario No encontrado, verificar usuario y contraseña.
+            </div>                    
+            ';
+          }
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,21 +67,18 @@
         </header>
         <main>
             <div class="d-flex justify-content-center text-center pt-4">
-                <form class="form-signing w-50">
+                <form action="login.php" method="POST" class="form-signing w-50">
                     <img class="mb-4" src="images/usuario.svg" alt="" width="72" height="72">
+                    <?php if (!empty($message)) : ?>
+                        <p> <?= $message ?></p>
+                    <?php endif; ?>
                     <h1 class="h3 mb-3 font-weight-normal">Iniciar sesión</h1>
                     <p class="mb-3 font-weight-normal">o <a href="registro.php">registrarse</a></p>
                     <label for="inputEmail" class="sr-only">Correo Electrónico</label>
-                    <input type="email" id="inputEmail" class="form-control mb-2" placeholder="Correo Electrónico" required="" autofocus="">
+                    <input name="inputEmail" type="email" id="inputEmail" class="form-control mb-2" placeholder="Correo Electrónico" required="" autofocus="">
                     <label for="inputPassword" class="sr-only">Contraseña</label>
-                    <input type="password" id="inputPassword" class="form-control mb-3" placeholder="Contraseña" required="">
-                    
-                    <button class="mb-3 btn btn-lg btn-primary btn-block" type="submit">Ingresar</button> 
-                    <div class="checkbox mb-3">
-                        <label>
-                            <input type="checkbox" value="remember-me"> Remember me
-                        </label>
-                    </div>                   
+                    <input name="inputPassword" type="password" id="inputPassword" class="form-control mb-3" placeholder="Contraseña" required="">                    
+                    <button class="mb-3 btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>                  
                 </form>
             </div>
         </main>

@@ -1,3 +1,19 @@
+<?php
+  session_start();
+  require 'includes/connection.php';
+  if (isset($_SESSION['idcliente'])) {
+    $records = $connection->prepare('SELECT idcliente, email, password FROM clientes2 WHERE idcliente = ?');
+    $records->bind_param('s', $_SESSION['idcliente']); 
+    $records->execute();
+    $results=$records->get_result();
+    $user=null;
+    if($results->num_rows>0){            
+      while($row=$results->fetch_assoc()){
+        $user=$row;                
+      }     
+    }
+  }
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -13,7 +29,7 @@
     <div class="container">
         <header>            
             <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
-                <a class="navbar-brand" href="index.html"><img class="logo" src="images/logo.svg" alt="edutech" width="150px" ></a>                
+                <a class="navbar-brand" href="index.php"><img class="logo" src="images/logo.svg" alt="edutech" width="150px" ></a>                
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
                   <span class="navbar-toggler-icon"></span>
                 </button>              
@@ -23,15 +39,24 @@
                       <a class="nav-link" href="productos.php">Productos</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="contacto.html">Contacto</a>
+                        <a class="nav-link" href="contacto.php">Contacto</a>
                     </li>                  
                   </ul>
                 </div>
-                <div>
-                  <a class="btn btn-outline-success text-white" href="login.php">Registro/Login</a>
-                </div>
+                <?php if(!empty($user)): ?>
+                  <div>
+                    <span class="text-white"><?= $user['email']; ?></span>
+                    <a class="btn btn-outline-success text-white" href="logout.php">Logout</a>
+                  </div>
+                  <?php else: ?>
+                  <div>
+                    <span class="text-white"></span>
+                    <a class="btn btn-outline-success text-white" href="login.php">Registro/Login</a>
+                  </div>
+                <?php endif; ?>
             </nav>                        
         </header>
+
         <main>
           <section>
             <div id="carouselExampleControls" class="carousel slide" data-ride="carousel">

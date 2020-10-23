@@ -5,10 +5,11 @@ require_once 'includes/connection.php';
 $message = '';
 
 if (!empty($_POST['inputEmail']) && !empty($_POST['inputPassword'])) {
-    $sql = "INSERT INTO clientes2 (email, password) VALUES (?,?)";
+    $sql = "INSERT INTO clientes2 (email, password, nombre) VALUES (?,?,?)";
     $stmt = $connection->prepare($sql);
-    $stmt->bind_param('ss', $email, $password);
+    $stmt->bind_param('sss', $email, $password, $name);
     $email = $_POST['inputEmail'];
+    $name = $_POST['inputName'];
     $password = password_hash($_POST['inputPassword'], PASSWORD_BCRYPT);
     if ($stmt->execute()) {
         $message = '
@@ -73,6 +74,8 @@ if (!empty($_POST['inputEmail']) && !empty($_POST['inputPassword'])) {
                     <?php endif; ?>
                     <h1 class="h3 mb-3 font-weight-normal">Registrar usuario</h1>
                     <p class="mb-3 font-weight-normal">o <a href="login.php">iniciar sesión</a></p>
+                    <label for="inputName" class="sr-only">Correo Electrónico</label>
+                    <input name="inputName" type="text" id="inputName" class="form-control  mb-2" placeholder="Nombre" required="" autofocus="">
                     <label for="inputEmail" class="sr-only">Correo Electrónico</label>
                     <input name="inputEmail" type="email" id="inputEmail" class="form-control  mb-2" placeholder="Correo Electrónico" required="" autofocus="">
                     <label for="inputPassword" class="sr-only">Contraseña</label>
