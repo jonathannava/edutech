@@ -5,73 +5,43 @@ require_once 'includes/connection.php';
 $message = '';
 
 if (!empty($_POST['inputEmail']) && !empty($_POST['inputPassword'])) {
-    $records = $connection->prepare('SELECT idcliente, email, password FROM clientes2 WHERE email = ?');
+    $records = $connection->prepare('SELECT idcliente, email, password FROM clientes WHERE email = ?');
     $records->bind_param('s', $_POST['inputEmail']); 
     $records->execute();
     $results=$records->get_result();
     $message = '';
     if($results->num_rows>0){            
-        #while($row=$results->fetch_assoc()){                
             $message = '
             <div class="alert alert-warning alert-dismissible fade show">
             <button type="button" class="close" data-dismiss="alert">&times;</button>
             <strong>Warning! </strong>Este email ya está registrado.
             </div>                    
-            ';
-        #}                       
-    }
+            ';                              
+    } 
     else {
-        #if (!empty($_POST['inputEmail']) && !empty($_POST['inputPassword'])) {
-            $sql = "INSERT INTO clientes2 (email, password, nombre) VALUES (?,?,?)";
-            $stmt = $connection->prepare($sql);
-            $stmt->bind_param('sss', $email, $password, $name);
-            $email = $_POST['inputEmail'];
-            $name = $_POST['inputName'];
-            $password = password_hash($_POST['inputPassword'], PASSWORD_BCRYPT);
-            if ($stmt->execute()) {
-                $message = '
+        $sql = "INSERT INTO clientes (email, password, nombre) VALUES (?,?,?)";
+        $stmt = $connection->prepare($sql);
+        $stmt->bind_param('sss', $email, $password, $name);
+        $email = $_POST['inputEmail'];
+        $name = $_POST['inputName'];
+        $password = password_hash($_POST['inputPassword'], PASSWORD_BCRYPT);
+        if ($stmt->execute()) {
+            $message = '
                 <div class="alert alert-success alert-dismissible fade show">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                     <strong>Success!</strong> Nuevo usuario creado satisfactoriamente.
                 </div>
               ';
-            } else {
-                $message = '
+        } else {
+            $message = '
                 <div class="alert alert-warning alert-dismissible fade show">
                     <button type="button" class="close" data-dismiss="alert">&times;</button>
                     <strong>Warning!</strong> Ocurrio un problema al crear la cuenta de susuario.
                 </div>
               ';
-            }
-        #}
-
-
+        }
     }
 }
-
-/* if (!empty($_POST['inputEmail']) && !empty($_POST['inputPassword'])) {
-    $sql = "INSERT INTO clientes2 (email, password, nombre) VALUES (?,?,?)";
-    $stmt = $connection->prepare($sql);
-    $stmt->bind_param('sss', $email, $password, $name);
-    $email = $_POST['inputEmail'];
-    $name = $_POST['inputName'];
-    $password = password_hash($_POST['inputPassword'], PASSWORD_BCRYPT);
-    if ($stmt->execute()) {
-        $message = '
-        <div class="alert alert-success alert-dismissible fade show">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Success!</strong> Nuevo usuario creado satisfactoriamente.
-        </div>
-      ';
-    } else {
-        $message = '
-        <div class="alert alert-warning alert-dismissible fade show">
-            <button type="button" class="close" data-dismiss="alert">&times;</button>
-            <strong>Warning!</strong> Ocurrio un problema al crear la cuenta de susuario.
-        </div>
-      ';
-    }
-} */
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -168,11 +138,9 @@ if (!empty($_POST['inputEmail']) && !empty($_POST['inputPassword'])) {
     <script>
         $('#Button').prop('disabled', true);
         function passwordConfirm() {           
-            if (document.getElementById('inputPassword').value == document.getElementById('inputPasswordConfirm').value) {
-                //document.getElementById('message').style.color = 'green';
+            if (document.getElementById('inputPassword').value == document.getElementById('inputPasswordConfirm').value) {               
                 document.getElementById('message').className="text-success";
                 document.getElementById('message').innerHTML = '';
-                /* document.registerForm.submit(); */
                 $('#Button').prop('disabled', false);
             } else {
                 document.getElementById('message').className = 'text-danger';

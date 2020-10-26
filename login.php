@@ -1,12 +1,12 @@
 <?php
     session_start();
     if (isset($_SESSION['idcliente'])) {
-        header('Location: /index.php');
+        header('Location: /edutech');
       }
     require 'includes/connection.php';
     
     if (!empty($_POST['inputEmail']) && !empty($_POST['inputPassword'])) {
-        $records = $connection->prepare('SELECT idcliente, email, password FROM clientes2 WHERE email = ?');
+        $records = $connection->prepare('SELECT idcliente, email, password FROM clientes WHERE email = ?');
         $records->bind_param('s', $_POST['inputEmail']); 
         $records->execute();
         $results=$records->get_result();
@@ -15,19 +15,8 @@
             while($row=$results->fetch_assoc()){                
                 if ( (password_verify($_POST['inputPassword'], $row['password']))) {
                     
-                    $_SESSION['idcliente'] = $row['idcliente'];
-                    
-                    /* $message = '
-                        <div class="alert alert-success alert-dismissible fade show">
-                        <button type="button" class="close" data-dismiss="alert">&times;</button>
-                        <strong>Usuario encontrado!</strong> Bienvenido '.$row['email'].'.
-                        </div>                    
-                    '; */
-                    $message = '
-                                
-                    ';
-                    
-                    header("Location: /index.php");
+                    $_SESSION['idcliente'] = $row['idcliente'];                    
+                    header("Location: /edutech");
                 }
                 else {
                     $message = '
@@ -37,7 +26,6 @@
                     </div>                    
                     ';
                 }
-
             }                       
         }
         else {

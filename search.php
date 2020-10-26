@@ -27,8 +27,7 @@
             ";
             
         }
-        echo $output;
-        
+        echo $output;        
     }
     else{
             echo "<h3>Producto no encontrado.</h3>";

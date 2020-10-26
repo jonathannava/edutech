@@ -2,7 +2,7 @@
 session_start();
 require 'includes/connection.php';
 if (isset($_SESSION['idcliente'])) {
-  $records = $connection->prepare('SELECT idcliente, email, password FROM clientes2 WHERE idcliente = ?');
+  $records = $connection->prepare('SELECT idcliente, email, password FROM clientes WHERE idcliente = ?');
   $records->bind_param('s', $_SESSION['idcliente']);
   $records->execute();
   $results = $records->get_result();

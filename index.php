@@ -2,7 +2,7 @@
 session_start();
 require 'includes/connection.php';
 if (isset($_SESSION['idcliente'])) {
-  $records = $connection->prepare('SELECT idcliente, email, password, nombre FROM clientes2 WHERE idcliente = ?');
+  $records = $connection->prepare('SELECT idcliente, email, password, nombre FROM clientes WHERE idcliente = ?');
   $records->bind_param('s', $_SESSION['idcliente']);
   $records->execute();
   $results = $records->get_result();
@@ -16,7 +16,6 @@ if (isset($_SESSION['idcliente'])) {
 ?>
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -66,11 +65,11 @@ if (isset($_SESSION['idcliente'])) {
           </div>
           <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.4/jquery.min.js" type="text/javascript"></script>
           <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" type="text/javascript"></script>
-          <script type="text/javascript">
-            $(function() {
-              $("#myModal").modal();
-            });
-          </script>
+            <script type="text/javascript">
+              $(function() {
+                $("#myModal").modal();
+              });
+            </script>
           <div>
             <span class="text-white"><?= $user['email']; ?></span>
             <a class="btn btn-outline-success text-white" href="logout.php">Logout</a>
@@ -193,8 +192,6 @@ if (isset($_SESSION['idcliente'])) {
     </footer>
   </div>
 
-
-  </script>
   <!-- Optional JavaScript -->
   <!-- jQuery first, then Popper.js, then Bootstrap JS -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
