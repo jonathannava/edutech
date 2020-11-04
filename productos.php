@@ -166,6 +166,43 @@ if (isset($_SESSION['idcliente'])) {
 
   <script>
     $(document).ready(function() {
+      
+      $(".addItemButton").click(function(e) {
+        e.preventDefault();
+        var $form = $(this).closest(".form-submit");
+        var idcliente = $form.find(".idcliente").val();
+        var idproducto = $form.find(".idproducto").val();
+        var productoDescripcion = $form.find(".productoDescripcion").val();
+        var productoPrecio = $form.find(".productoPrecio").val();
+        $.ajax({
+          url: 'addItem.php',
+          method: 'post',
+          data: {
+            idcliente: idcliente,
+            idproducto: idproducto,
+            productoDescripcion: productoDescripcion,
+            productoPrecio: productoPrecio
+          },
+          success: function(response) {
+            $("#message").html(response);
+            window.scrollTo(0, 0);
+            updateCartItemNumber();
+          }
+        });
+      });
+      updateCartItemNumber();
+      function updateCartItemNumber(){  
+        $.ajax({
+          url:'qty.php',
+          method:'get',
+          data: {
+          cartItem: "cart_item"
+          },
+          success:function(response){
+            $("#cart-Item").html(response);            
+          }  
+        });
+      }
       $(".product_check").click(function() {
         var action = 'data';
         var idcategoria = get_categories('idcategoria');
@@ -193,12 +230,12 @@ if (isset($_SESSION['idcliente'])) {
           },
           success: function(response) {
             $("#result").html(response);
+            $("#message").html(response);
 
           }
         });
 
       });
-
 
       function get_categories(text_id) {
         var filterData = [];
