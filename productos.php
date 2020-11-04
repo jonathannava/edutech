@@ -95,24 +95,30 @@ if (isset($_SESSION['idcliente'])) {
               <div class="container">
                 <div class="row row-cols-1 row-cols-md-3 mt-2" id="result">
                   <?php
-                  $query = "SELECT * FROM productos";
-                  $sendQuery = mysqli_query($connection, $query);
-                  $sendQueryCheck = mysqli_num_rows($sendQuery);
-                  if ($sendQueryCheck > 0) {
-                    while ($row = mysqli_fetch_assoc($sendQuery)) {
-                      echo "
-                        <div class='col-md-6 mb-4 '>
-                          <div class='card border border-success '> 
-                            <img class='card-img-top' src='{$row['urlimagen']}' alt='Card image cap'>
-                            <div class='card-body'>
-                            <h5 class='card-title '>{$row['descripcion']} </h5>
-                            <p class='card-text'>Precio: <span class='text-danger font-weight-bold'>\${$row['precio']}</span></p>                      
-                            </div>
-                          </div>
-                        </div>                      
-                        ";
-                    }
-                  }
+                  $query = $connection->prepare("SELECT * FROM productos");
+                  $query->execute();
+                  $result = $query->get_result();
+                  while ($row = $result->fetch_assoc()) :
+                  ?>
+                    <div class="col-md-6 mb-4 ">
+                      <div class="card border border-success ">
+                        <img class="card-img-top" src="<?= $row['urlimagen'] ?>" alt="Card image cap">
+                        <div class="card-body">
+                          <h4 class="card-title "><?= $row['descripcion'] ?> </h4>
+                          <h5 class="card-text">Precio: <span class="text-danger font-weight-bold">$<?= number_format($row['precio']) ?></span></h5>
+                        </div>
+                        <div class="card-footer">
+                          <form action="" class="form-submit">                          
+                            <input type="hidden" class="idcliente" value="<?=$_SESSION['idcliente']?>">   
+                            <input type="hidden" class="idproducto" value="<?=$row['idproducto']?>">       
+                            <input type="hidden" class="productoDescripcion" value="<?=$row['descripcion']?>">       
+                            <input type="hidden" class="productoPrecio" value="<?=$row['precio']?>">                           
+                            <button class="btn btn-info btn-block addItemButton">Agregar al carrito</button>
+                          </form>
+                        </div>
+                      </div>
+                    </div>
+                  <?php endwhile;
                   ?>
                 </div>
               </div>
