@@ -1,7 +1,7 @@
 <?php
     session_start();
     require_once 'includes/connection.php';
- ###  if (isset($_SESSION['idcliente'])) {
+   if (isset($_SESSION['idcliente'])) {
         $idcliente= $_POST['idcliente'];
         $idproducto= $_POST['idproducto'];
         $productoDescripcion= $_POST['productoDescripcion'];
@@ -36,13 +36,12 @@
                     </div>                    
                     ';
         }   
-   ###}
-   ### else {
-  ###  echo '
-  ###  <div class="alert alert-warning alert-dismissible fade show">
-  ###  <button type="button" class="close" data-dismiss="alert">&times;</button>
-  ###  Para agregar un producto necesita<a href="login.php"><strong> Iniciar sesión.</strong></a> 
- ###   </div>                    
- ##   ';
-###}
-?>
+}
+    else {
+    echo '
+    <div class="alert alert-warning alert-dismissible fade show">
+    <button type="button" class="close" data-dismiss="alert">&times;</button>
+    Para agregar un producto necesita<a href="login.php"><strong> Iniciar sesión.</strong></a> 
+    </div>                    
+   ';
+}
