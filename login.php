@@ -1,7 +1,7 @@
 <?php
     session_start();
     if (isset($_SESSION['idcliente'])) {
-        header('Location: /edutech');
+        header('Location: /');
       }
     require 'includes/connection.php';
     
@@ -16,7 +16,7 @@
                 if ( (password_verify($_POST['inputPassword'], $row['password']))) {
                     
                     $_SESSION['idcliente'] = $row['idcliente'];                    
-                    header("Location: /edutech");
+                    header("Location: /");
                 }
                 else {
                     $message = '

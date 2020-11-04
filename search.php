@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once 'includes/connection.php';
 $output = '';
 if (isset($_POST['query'])) {
