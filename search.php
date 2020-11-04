@@ -55,7 +55,7 @@ if ($result->num_rows > 0) {
             productoPrecio: productoPrecio
           },
           success: function(response) {
-            $("#message").html(response);
+            $("#messageItem").html(response);
             window.scrollTo(0, 0);
             updateCartItemNumber();
           }
