@@ -99,6 +99,7 @@ if (isset($_SESSION['idcliente'])) {
           <div class="col-md-9">
             <div class="album py-5">
               <div class="container">
+              <div id="messageItem"></div>
                 <div class="row row-cols-1 row-cols-md-3 mt-2" id="result">
                   <?php
                   $query = $connection->prepare("SELECT * FROM productos");
@@ -190,7 +191,7 @@ if (isset($_SESSION['idcliente'])) {
             productoPrecio: productoPrecio
           },
           success: function(response) {
-            $("#message").html(response);
+            $("#messageItem").html(response);
             window.scrollTo(0, 0);
             updateCartItemNumber();
           }
