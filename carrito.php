@@ -2,7 +2,7 @@
 session_start();
 require 'includes/connection.php';
 if (isset($_SESSION['idcliente'])) {
-    
+    $_SESSION['grandTotal'] = 0;
     $records = $connection->prepare('SELECT idcliente, email, password FROM clientes WHERE idcliente = ?');
     $records->bind_param('s', $_SESSION['idcliente']);
     $records->execute();
@@ -135,8 +135,8 @@ if (isset($_SESSION['idcliente'])) {
                                             </td>
                                         </tr>
                                         <?php                                         
-                                            #$_SESSION['grandTotal' = 0;
-                                            $_SESSION['grandTotal']+= $total;                                         
+                                            
+                                            $_SESSION['grandTotal']=$_SESSION['grandTotal']+$total;                                         
                                          ?>
                                     <?php endwhile; ?>
                                     <tr>

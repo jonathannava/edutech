@@ -42,21 +42,25 @@ session_start();
     }
 ?>
   <script>
-    $(document).ready(function() {      
+    $(document).ready(function() {
+
       $(".addItemButton").click(function(e) {
         e.preventDefault();
         var $form = $(this).closest(".form-submit");
         var idcliente = $form.find(".idcliente").val();
         var idproducto = $form.find(".idproducto").val();
-        var productoDescripcion = $form.find(".productoDescripcion").val();
+       /*  var productoURLimagen = $form.find(".productoURLimagen").val();
+        var productoDescripcion = $form.find(".productoDescripcion").val(); */
         var productoPrecio = $form.find(".productoPrecio").val();
+
         $.ajax({
-          url: 'addItem.php',
+          url: 'ItemAction.php',
           method: 'post',
           data: {
             idcliente: idcliente,
             idproducto: idproducto,
-            productoDescripcion: productoDescripcion,
+           /*  productoURLimagen: productoURLimagen,
+            productoDescripcion: productoDescripcion, */
             productoPrecio: productoPrecio
           },
           success: function(response) {
@@ -67,17 +71,59 @@ session_start();
         });
       });
       updateCartItemNumber();
-      function updateCartItemNumber(){  
+
+      function updateCartItemNumber() {
         $.ajax({
-          url:'qty.php',
-          method:'get',
+          url: 'qty.php',
+          method: 'get',
           data: {
-          cartItem: "cart_item"
+            cartItem: "cart_item"
           },
-          success:function(response){
-            $("#cart-Item").html(response);            
-          }  
+          success: function(response) {
+            $("#cart-Item").html(response);
+          }
         });
-      };
+      }
+      $(".product_check").click(function() {
+        var action = 'data';
+        var idcategoria = get_categories('idcategoria');
+        $.ajax({
+          url: 'action.php',
+          method: 'POST',
+          data: {
+            action: action,
+            idcategoria: idcategoria
+          },
+          success: function(response) {
+            $("#result").html(response);
+
+          }
+        });
+      });
+
+      $("#search_text").keyup(function() {
+        var search = $(this).val();
+        $.ajax({
+          url: 'search.php',
+          method: 'POST',
+          data: {
+            query: search
+          },
+          success: function(response) {
+            $("#result").html(response);
+            $("#message").html(response);
+
+          }
+        });
+
+      });
+
+      function get_categories(text_id) {
+        var filterData = [];
+        $('#' + text_id + ':checked').each(function() {
+          filterData.push($(this).val());
+        });
+        return filterData;
+      }
     });
   </script>
