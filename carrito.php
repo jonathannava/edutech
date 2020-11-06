@@ -2,6 +2,7 @@
 session_start();
 require 'includes/connection.php';
 if (isset($_SESSION['idcliente'])) {
+    
     $records = $connection->prepare('SELECT idcliente, email, password FROM clientes WHERE idcliente = ?');
     $records->bind_param('s', $_SESSION['idcliente']);
     $records->execute();
@@ -72,6 +73,18 @@ if (isset($_SESSION['idcliente'])) {
             <div class="container">
                 <div class="row justify-content-center">
                     <div class="col-lg-10">
+                        <div style="display:<?php if (isset($_SESSION['showAlert'])) {
+                                                echo $_SESSION['showAlert'];
+                                            } else {
+                                                echo 'none';
+                                            }
+                                            unset($_SESSION['showAlert']); ?>" class="alert alert-success alert-dismissible mt-3">
+                            <button type="button" class="close" data-dismiss="alert">&times;</button>
+                            <strong><?php if (isset($_SESSION['messageRemove'])) {
+                                        echo $_SESSION['messageRemove'];
+                                    }
+                                    unset($_SESSION['showAlert']); ?></strong>
+                        </div>
                         <div class="table-responsive mt-2">
                             <table class="table table-bordered table-striped text-center">
                                 <thead>
@@ -81,32 +94,61 @@ if (isset($_SESSION['idcliente'])) {
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td>ID</td>
+                                        <td>ID Producto</td>
                                         <td>Imagen</td>
                                         <td>Nombre</td>
                                         <td>Precio</td>
                                         <td>Cantidad</td>
                                         <td>Total</td>
                                         <th>
-                                            <a href="addItem.php?clear=all" class="badge-danger badge p-2" onclick="return confirm('limpiar carrito de compra');">Limpiar carrito</a>
+                                            <a href="remove.php?clear=all" class="badge-danger badge p-2" onclick="return confirm('limpiar carrito de compra');">Limpiar carrito</a>
                                         </th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <?php
-                                        require 'includes/connection.php';
-                                        $stmt = $connection->prepare('SELECT * FROM carrito');
-                                        $stmt->execute();
-                                        $result=$stmt->get_result();
-                                        $total =0;
-                                        while ($row = $result->fetch_assoc()) :
-                                    ?>
-                                    <tr>
-                                        <!-- <td><?= ?></td> -->
-                                    </tr>
+                                    require 'includes/connection.php';
+                                    $stmt = $connection->prepare('SELECT c.idcliente,p.idproducto,p.urlimagen,p.descripcion,p.precio,c.cantidad
+                                        FROM carrito c, productos p
+                                        WHERE c.idproducto = p.idproducto');
 
-                                    <?php endwhile;
+                                    $stmt->execute();
+                                    $result = $stmt->get_result();
+                                    $total = 0;
+                                    while ($row = $result->fetch_assoc()) : 
                                     ?>
+                                        <tr>
+                                            <td><?= $row['idproducto']; ?></td>
+                                            <td><img src="<?= $row['urlimagen']; ?>" alt="" width="50"></td>
+                                            <td><?= $row['descripcion']; ?></td>
+                                            <td><?= number_format($row['precio']); ?></td>
+                                            <td><?= $row['cantidad']; ?></td>
+                                            <?php $total = number_format($row['precio']) * $row['cantidad'] ?>
+                                            <td><?= $total ?></td>
+                                            <td>
+                                                <a href="remove.php?remove=<?= $row['idproducto']; ?>" class="text-danger" onclick="return confirm('¿Seguro que deseas borrar este producto?');">
+                                                    <svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-trash" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                                        <path d="M5.5 5.5A.5.5 0 0 1 6 6v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm2.5 0a.5.5 0 0 1 .5.5v6a.5.5 0 0 1-1 0V6a.5.5 0 0 1 .5-.5zm3 .5a.5.5 0 0 0-1 0v6a.5.5 0 0 0 1 0V6z" />
+                                                        <path fill-rule="evenodd" d="M14.5 3a1 1 0 0 1-1 1H13v9a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V4h-.5a1 1 0 0 1-1-1V2a1 1 0 0 1 1-1H6a1 1 0 0 1 1-1h2a1 1 0 0 1 1 1h3.5a1 1 0 0 1 1 1v1zM4.118 4L4 4.059V13a1 1 0 0 0 1 1h6a1 1 0 0 0 1-1V4.059L11.882 4H4.118zM2.5 3V2h11v1h-11z" />
+                                                    </svg>
+                                                </a>
+                                            </td>
+                                        </tr>
+                                        <?php                                         
+                                            #$_SESSION['grandTotal' = 0;
+                                            $_SESSION['grandTotal']+= $total;                                         
+                                         ?>
+                                    <?php endwhile; ?>
+                                    <tr>
+                                        <td colspan="3">
+                                            <a href="productos.php" class="btn btn-success">Continuar comprando</a>
+                                        </td>
+                                        <td colspan="2" class="font-weight-bold p-3">Total</td>
+                                        <td class="font-weight-bold p-3"><?=$_SESSION['grandTotal']; ?></td>
+                                        <td>
+                                            <a href="procesarPago.php" class="btn btn-info <?= ($grandTotal > 1) ? "" : "disable"; ?>">Procesar Pago</a>
+                                        </td>
+                                    </tr>
                                 </tbody>
                             </table>
                         </div>
@@ -171,6 +213,7 @@ if (isset($_SESSION['idcliente'])) {
             }
         });
     </script>
+    
 </body>
 
 </html>

@@ -99,8 +99,8 @@ if (isset($_SESSION['idcliente'])) {
           <div class="col-md-9">
             <div class="album py-5">
               <div class="container">
-              <div id="messageItem"></div>
-              <!-- <div id="message"></div> -->
+                <div id="messageItem"></div>
+                <!-- <div id="message"></div> -->
                 <div class="row row-cols-1 row-cols-md-3 mt-2" id="result">
                   <?php
                   $query = $connection->prepare("SELECT * FROM productos");
@@ -116,11 +116,12 @@ if (isset($_SESSION['idcliente'])) {
                           <h5 class="card-text">Precio: <span class="text-danger font-weight-bold">$<?= number_format($row['precio']) ?></span></h5>
                         </div>
                         <div class="card-footer">
-                          <form action="" class="form-submit">                          
-                            <input type="hidden" class="idcliente" value="<?=$_SESSION['idcliente']?>">   
-                            <input type="hidden" class="idproducto" value="<?=$row['idproducto']?>">       
-                            <input type="hidden" class="productoDescripcion" value="<?=$row['descripcion']?>">       
-                            <input type="hidden" class="productoPrecio" value="<?=$row['precio']?>">                           
+                          <form action="" class="form-submit">
+                            <input type="hidden" class="idcliente" value="<?= $_SESSION['idcliente'] ?>">
+                            <input type="hidden" class="idproducto" value="<?= $row['idproducto'] ?>">
+                            <!-- <input type="hidden" class="productoURLimagen" value="<?= $row['urlimagen'] ?>">
+                            <input type="hidden" class="productoDescripcion" value="<?= $row['descripcion'] ?>"> -->
+                            <input type="hidden" class="productoPrecio" value="<?= $row['precio'] ?>">
                             <button class="btn btn-info btn-block addItemButton">Agregar al carrito</button>
                           </form>
                         </div>
@@ -174,21 +175,24 @@ if (isset($_SESSION['idcliente'])) {
 
   <script>
     $(document).ready(function() {
-      
+
       $(".addItemButton").click(function(e) {
         e.preventDefault();
         var $form = $(this).closest(".form-submit");
         var idcliente = $form.find(".idcliente").val();
         var idproducto = $form.find(".idproducto").val();
-        var productoDescripcion = $form.find(".productoDescripcion").val();
+       /*  var productoURLimagen = $form.find(".productoURLimagen").val();
+        var productoDescripcion = $form.find(".productoDescripcion").val(); */
         var productoPrecio = $form.find(".productoPrecio").val();
+
         $.ajax({
-          url: 'addItem.php',
+          url: 'ItemAction.php',
           method: 'post',
           data: {
             idcliente: idcliente,
             idproducto: idproducto,
-            productoDescripcion: productoDescripcion,
+           /*  productoURLimagen: productoURLimagen,
+            productoDescripcion: productoDescripcion, */
             productoPrecio: productoPrecio
           },
           success: function(response) {
@@ -199,16 +203,17 @@ if (isset($_SESSION['idcliente'])) {
         });
       });
       updateCartItemNumber();
-      function updateCartItemNumber(){  
+
+      function updateCartItemNumber() {
         $.ajax({
-          url:'qty.php',
-          method:'get',
+          url: 'qty.php',
+          method: 'get',
           data: {
-          cartItem: "cart_item"
+            cartItem: "cart_item"
           },
-          success:function(response){
-            $("#cart-Item").html(response);            
-          }  
+          success: function(response) {
+            $("#cart-Item").html(response);
+          }
         });
       }
       $(".product_check").click(function() {
