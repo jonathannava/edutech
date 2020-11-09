@@ -146,7 +146,7 @@ if (isset($_SESSION['idcliente'])) {
                                         <td colspan="2" class="font-weight-bold p-3">Total</td>
                                         <td class="font-weight-bold p-3"><?=$_SESSION['grandTotal']; ?></td>
                                         <td>
-                                            <a href="procesarPago.php" class="btn btn-info <?= ($grandTotal > 1) ? "" : "disable"; ?>">Procesar Pago</a>
+                                            <a href="procesarPago.php" class="btn btn-info <?= ($_SESSION['grandTotal'] > 1) ? "" : "disable"; ?>">Procesar Pago</a>
                                         </td>
                                     </tr>
                                 </tbody>

@@ -4,8 +4,6 @@ require_once 'includes/connection.php';
 if (isset($_SESSION['idcliente'])) {
     $idcliente = $_POST['idcliente'];
     $idproducto = $_POST['idproducto'];
-    #$productoURLimagen=$_POST['productoURLimagen'];
-    #$productoDescripcion= $_POST['productoDescripcion'];
     $productoPrecio = $_POST['productoPrecio'];
     $cantidad = 1;
 

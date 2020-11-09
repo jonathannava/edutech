@@ -41,7 +41,7 @@ session_start();
         echo $output;
     }
 ?>
-  <script>
+  <scrip>
     $(document).ready(function() {
 
       $(".addItemButton").click(function(e) {
@@ -126,4 +126,4 @@ session_start();
         return filterData;
       }
     });
-  </script>
+  </scrip

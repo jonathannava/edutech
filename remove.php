@@ -22,5 +22,13 @@ if (isset($_GET['remove'])) {
     $_SESSION['messageRemove'] = 'Todos los productos borrados del carrito!';
     header('location:carrito.php');
   }
+  if (isset($_GET['cartEmpty'])) {
+    $_SESSION['grandTotal']=0;
+    $stmt = $connection->prepare('DELETE FROM carrito');
+    $stmt->execute();
+    #$_SESSION['showAlert'] = 'block';
+    $_SESSION['messageRemove'] = 'Todos los productos borrados del carrito!';
+    header('location:index.php');
+  }
 
 ?>
