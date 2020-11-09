@@ -181,8 +181,6 @@ if (isset($_SESSION['idcliente'])) {
         var $form = $(this).closest(".form-submit");
         var idcliente = $form.find(".idcliente").val();
         var idproducto = $form.find(".idproducto").val();
-       /*  var productoURLimagen = $form.find(".productoURLimagen").val();
-        var productoDescripcion = $form.find(".productoDescripcion").val(); */
         var productoPrecio = $form.find(".productoPrecio").val();
 
         $.ajax({
@@ -191,8 +189,6 @@ if (isset($_SESSION['idcliente'])) {
           data: {
             idcliente: idcliente,
             idproducto: idproducto,
-           /*  productoURLimagen: productoURLimagen,
-            productoDescripcion: productoDescripcion, */
             productoPrecio: productoPrecio
           },
           success: function(response) {

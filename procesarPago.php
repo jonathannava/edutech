@@ -1,7 +1,18 @@
 <?php
 session_start();
 require 'includes/connection.php';
-
+if (isset($_SESSION['idcliente'])) {
+    $records = $connection->prepare('SELECT idcliente, email, password FROM clientes WHERE idcliente = ?');
+    $records->bind_param('s', $_SESSION['idcliente']);
+    $records->execute();
+    $results = $records->get_result();
+    $user = null;
+    if ($results->num_rows > 0) {
+      while ($row = $results->fetch_assoc()) {
+        $user = $row;
+      }
+    }
+  }
 ?>
 
 <!DOCTYPE html>
