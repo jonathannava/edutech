@@ -62,25 +62,27 @@ if (isset($_SESSION['idcliente'])) {
                 <h1 class="jumbotron-heading">Contacto</h1>
               </div>
             </section>
-            <div class="d-flex justify-content-center">
-                <form class="p-2 w-50">
+            <div class="d-flex justify-content-center" id="mensajeContacto">
+                <form action="" method="POST" id="saveContact" class="p-2 w-50">
                     <div class="form-group">
                         <label for="InputName">Nombre</label>
-                        <input type="text" class="form-control" id="InputName">
+                        <input type="text" class="form-control" name="nombre" >
                     </div>
                     <div class="form-group">
                       <label for="InputEmail">Email</label>
-                      <input type="email" class="form-control" id="InputEmail">
+                      <input type="email" class="form-control" name="email" >
                     </div>
                     <div class="form-group">
                         <label for="InputPhone">Teléfono</label>
-                        <input type="text" class="form-control" id="InputPhone">
+                        <input type="text" class="form-control" name="telefono" >
                     </div>
                     <div class="form-group">
                         <label for="Textarea">Comentarios</label>
-                        <textarea class="form-control" id="Textarea" rows="3"></textarea>
+                        <textarea class="form-control" id="Textarea" name="comentaio" rows="3"></textarea>
                     </div>                    
-                    <button type="submit" class="btn btn-primary ">Enviar</button>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block p-2 ">Realizar Pedido</button>
+                    </div>
                 </form>
             </div>
         </main>
@@ -114,8 +116,23 @@ if (isset($_SESSION['idcliente'])) {
     
     <!-- Optional JavaScript -->
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script>
+        $(document).ready(function() {
+            $("#saveContact").submit(function(e) {
+                e.preventDefault();
+                $.ajax({
+                    url: 'guardar_contacto.php',
+                    method: 'post',
+                    data: $('form').serialize() + "&guardar_contacto=mensajeContacto",
+                    success: function(response) {
+                        $("#mensajeContacto").html(response);
+                    }
+                });
+            });
+        });
+    </script>
 </body>
 </html> 
