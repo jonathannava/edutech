@@ -1,6 +1,6 @@
-body{
+.bodyChat{
     height:400px;
-    position: fixed;
+    /* position: fixed; */
     bottom: 0;
 }
 .col-md-2, .col-md-10{
