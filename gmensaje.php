@@ -1,6 +1,7 @@
 <?php
 session_start();
 include "conexion.php";
+$message="";
 if (isset($_SESSION['idcliente'])) {
     $idcliente = $_SESSION['idcliente'];// asignar variable de sesion login
     $fecha = date('Y-m-d H:m:s');

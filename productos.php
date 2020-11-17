@@ -1,7 +1,9 @@
 <?php
 session_start();
 require 'includes/connection.php';
+
 if (isset($_SESSION['idcliente'])) {
+
   $records = $connection->prepare('SELECT idcliente, email, password FROM clientes WHERE idcliente = ?');
   $records->bind_param('s', $_SESSION['idcliente']);
   $records->execute();
@@ -139,34 +141,49 @@ if (isset($_SESSION['idcliente'])) {
 
     </main>
     <section class="bodyChat">
-    <div id="chat" class="row chat-window col-xs-5 col-md-3" id="chat_window_1" style="margin-left:10px;">
+      <div id="chat" class="row chat-window col-xs-5 col-md-3" id="chat_window_1" style="margin-left:10px;">
         <div class="col-xs-12 col-md-12">
-            <div class="panel panel-default">
-                <div class="panel-heading top-bar">
-                    <div class="col-md-8 col-xs-8">
-                        <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> Chat</h3>
-                    </div>
-                    <div class="col-md-4 col-xs-4" style="text-align: right;">
-                        <a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>
-                        <a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>
-                    </div>
-                </div>
-                <div class="panel-body msg_container_base">
-                    <div id="mschat"></div>                    
-                    
-                </div>
-                <div class="panel-footer">
-                    <div class="input-group">
-                        <input id="texto" type="text" class="form-control input-sm chat_input p-1 " placeholder="Escribe tu texto aqui..." />
-                        <span class="input-group-btn">
-                        <button class="btn btn-primary btn-sm p-2" id="btn-chat" onclick="enviar()">Enviar</button>
-                        </span>
-                    </div>
-                    <div class="panel-body msg_container_base">
-                </div>
+          <div class="panel panel-default">
+            <div class="panel-heading top-bar">
+              <div class="col-md-8 col-xs-8">
+                <h3 class="panel-title"><span class="glyphicon glyphicon-comment"></span> Chat</h3>
+
+              </div>
+              <div class="col-md-4 col-xs-4" style="text-align: right;">
+                <a href="#"><span id="minim_chat_window" class="glyphicon glyphicon-minus icon_minim"></span></a>
+                <a href="#"><span class="glyphicon glyphicon-remove icon_close" data-id="chat_window_1"></span></a>
+              </div>
             </div>
+            <div class="panel-body msg_container_base">
+              <div id="mschat"></div>
+
+            </div>
+            <?php if (!empty($user)) : ?>
+              <div class="panel-footer">
+              <div class="input-group">
+                <input id="texto" type="text" class="form-control input-sm chat_input p-1 " placeholder="Escribe tu texto aqui..." />
+                <span class="input-group-btn">
+                  <button class="btn btn-primary btn-sm p-2" id="btn-chat" onclick="enviar()">Enviar</button>
+                </span>
+              </div>
+              <div class="panel-body msg_container_base">
+              </div>
+            </div>
+            <?php else : ?>
+              <div class="panel-footer">
+              <div class="input-group">
+                <input id="texto" type="text" class="form-control input-sm chat_input p-1 " placeholder="Inicie sesión para usar el chat." />
+                <span class="input-group-btn">
+                  <button disabled class="btn btn-primary btn-sm p-2" id="btn-chat" onclick="enviar()">Enviar</button>
+                </span>
+              </div>
+              <div class="panel-body msg_container_base">
+              </div>
+            </div>
+            <?php endif; ?>
+
+          </div>
         </div>
-    </div>
     </section>
 
     <footer class="pt-4 my-md-5 pt-md-5 border-top">
@@ -287,7 +304,7 @@ if (isset($_SESSION['idcliente'])) {
       }
     });
   </script>
-  <script src="code.js?ver=<?php echo rand(1,300);?>"></script>
+  <script src="code.js?ver=<?php echo rand(1, 300); ?>"></script>
 </body>
 
 </html>
