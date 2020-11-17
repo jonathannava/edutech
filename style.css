@@ -1,6 +1,6 @@
 .bodyChat{
     height:400px;
-    /* position: fixed; */
+    position: fixed;
     bottom: 0;
 }
 .col-md-2, .col-md-10{
@@ -29,7 +29,7 @@
   overflow-x:hidden;
 }
 .top-bar {
-  background: #666;
+  background: rgb(0, 0, 0,0.8);  
   color: white;
   padding: 10px;
   position: relative;

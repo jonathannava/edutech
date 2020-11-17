@@ -157,11 +157,12 @@ if (isset($_SESSION['idcliente'])) {
                 </div>
                 <div class="panel-footer">
                     <div class="input-group">
-                        <input id="texto" type="text" class="form-control input-sm chat_input" placeholder="Escribe tu texto aqui..." />
+                        <input id="texto" type="text" class="form-control input-sm chat_input p-1 " placeholder="Escribe tu texto aqui..." />
                         <span class="input-group-btn">
-                        <button class="btn btn-primary btn-sm" id="btn-chat" onclick="enviar()">Enviar</button>
+                        <button class="btn btn-primary btn-sm p-2" id="btn-chat" onclick="enviar()">Enviar</button>
                         </span>
                     </div>
+                    <div class="panel-body msg_container_base">
                 </div>
             </div>
         </div>
