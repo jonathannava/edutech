@@ -1,8 +1,11 @@
 <?php
+session_start();
 include "conexion.php";
-$idcliente=1; // asignar variable de sesion login
+#$idcliente=1; // asignar variable de sesion login
 
-$consulta="select a.fecha,a.tipo,a.mensaje,b.nombre as cliente from chat as a left join clientes as b on a.idcliente=b.idcliente where a.idcliente='$idcliente' order by a.idchat asc";
+if (isset($_SESSION['idcliente'])) {
+    $idcliente=$_SESSION['idcliente'];
+    $consulta="select a.fecha,a.tipo,a.mensaje,b.nombre as cliente from chat as a left join clientes as b on a.idcliente=b.idcliente where a.idcliente='$idcliente' order by a.idchat asc";
 $recordset = mysqli_query($link,$consulta);
 while($registro = mysqli_fetch_array($recordset)){
     $fecha=$registro["fecha"];
@@ -40,5 +43,10 @@ while($registro = mysqli_fetch_array($recordset)){
     <?php        
     }               
 }
+
+  }
+
+
+
 
 ?>
