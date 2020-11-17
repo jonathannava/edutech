@@ -181,7 +181,6 @@ if (isset($_SESSION['idcliente'])) {
               </div>
             </div>
             <?php endif; ?>
-
           </div>
         </div>
     </section>
